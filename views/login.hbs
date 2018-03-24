@@ -1,7 +1,35 @@
 <!-- CODE FROM: https://scotch.io/tutorials/easy-node-authentication-setup-and-local-->
 <!-- LOGIN FORM -->
 <link href="/css/login.css" rel="stylesheet">
-<p>log in</p>
+<p id="logo" class="alpha title white">Clarify</p>
+<div class="container">
+	<p class="alpha white" style="margin-top:150px; font-size:45px;">Clarify</p><br><br><br>
+	<p class="alpha white subtitle">Log In</p><br>
+	<form class="login-form" action="/login" method="post">
+		<div class="form-group">
+			<input type="email" class="txt input-h form-control" name="email" placeholder="Email"></input>
+		</div>
+		<div class="form-group">
+			<input type="password" class="txt input-h form-control" name="password" placeholder="Password"></input>
+		</div>
+		<div class="btns">
+			<button type="submit" class="input-h btn-warning btn-lg">
+				Sign In
+			</button>
+			<button type="submit" class="input-h">
+				<a href="/signup">Sign Up</a>
+			</button>
+		</div>
+		<button type="submit" class="input-h google-btn">
+			<span class="google">
+				<i class="fab fa-google"></i>
+			</span>
+			<span class="sign-google">
+				Sign in with Google
+			</span>
+		</button>
+	</form>
+</div>
 
 		{{!-- <input type="email" class="txt input-h u-full-width" name="email" placeholder="Email"></input>
 		<input type="password" class="txt input-h u-full-width" name="password" placeholder="Password"></input>

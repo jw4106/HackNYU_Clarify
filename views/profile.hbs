@@ -1,5 +1,85 @@
+<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/profile.css" rel="stylesheet">
 
-<header>
-	<p class="title alpha">Clarify</p>
+<script>
+	Holder.addTheme("purple", {
+		bg: "#B586D2",
+		fg: "#fff",
+		size: 11,
+		font: "Monaco",
+		fontweight: "normal"
+	});
+</script>
+
+<header class="alpha">
+	<p class="title alpha prof-logo">Clarify</p>
+	<p id="user">User Name</p>
 </header>
+
+<div class="prof-container">
+	<section class="my-presentation">
+		<p class="prof-title alpha">Your Presentations</p>
+		<ul class="thumbnails">
+			<li class="span4">
+				<div class="thumbnail">
+					<img src="holder.js/300x200?theme=purple" alt="">
+					<div class="detail">
+						<h3 class="alpha">Header</h3>
+						<p class="beta">Caption</p>
+					</div>
+				</div>
+			</li>
+			<li class="span4">
+				<div class="thumbnail">
+					<img src="holder.js/300x200?theme=purple" alt="">
+					<div class="detail">
+						<h3 class="alpha">Header</h3>
+						<p class="beta">Caption</p>
+					</div>
+				</div>
+			</li>
+			<li class="span4">
+				<div class="thumbnail">
+					<img src="holder.js/300x200?theme=purple" alt="">
+					<div class="detail">
+						<h3 class="alpha">Header</h3>
+						<p class="beta">Caption</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</section>
+	<hr>
+	<section class="joined-presentation">
+		<p class="prof-title alpha">Joined Presentations</p>
+		<ul class="thumbnails">
+			<li class="span4">
+				<div class="thumbnail">
+					<img src="holder.js/300x200?theme=purple" alt="">
+					<div class="detail">
+						<h3 class="alpha">Header</h3>
+						<p class="beta">Caption</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</section>
+	<hr>
+	<div class="prof-add alpha">
+		<div>
+			<h4>Join New Presentation</h4>
+			<p>Enter Access Code</p>
+			<section class="global">
+				<input type="text" class="prof-text" name="groupCode">
+				<button type="submit" class="prof-btn">Join</button>
+			<section>
+		</div>
+		<div>
+			<h4>Create New Presentation</h4>
+			<p>Upload New Presentation</p>
+			<button type="submit" class="prof-btn"><a href="/create">Create</a></button>
+		</div>
+	</div>
+</div>
+
