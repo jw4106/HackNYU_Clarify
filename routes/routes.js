@@ -1,3 +1,4 @@
+
 // routes/routes.js
 module.exports = function(app, passport) {
     // *********** PASSPORT BEGIN ***********
@@ -41,6 +42,12 @@ module.exports = function(app, passport) {
             user : req.user // get the user out of session and pass to template
         });
     });
+
+    app.get('/presentation', isLoggedIn, function(req, res) {
+        res.render('presentation.hbs');
+
+    });
+
     // =====================================
     // LOGOUT ==============================
     // =====================================
@@ -66,6 +73,8 @@ module.exports = function(app, passport) {
 
     // CUSTOM ROUTES BEGIN
 };
+
+
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

@@ -37,5 +37,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static(path.join(__dirname, 'public')));
 
 require("./routes/routes.js")(app, passport);
-app.listen(process.env.PORT || 3000);
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening');
+});
 //app.listen(3000);
