@@ -1,4 +1,16 @@
 <!-- CODE FROM: https://scotch.io/tutorials/easy-node-authentication-setup-and-local-->
-<p>Login or Register with:</p>
-<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-<a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+<link href="/css/login.css" rel="stylesheet">
+<p id="logo" class="alpha title white">Clarify</p>
+<div class="container">
+	<p class="alpha white" style="margin-top:150px; font-size:45px;">Clarify</p><br><br><br>
+	<p class="alpha white subtitle">Log In</p><br>
+	<form class="login-form">
+		<input type="email" class="txt input-h" name="email" placeholder="Email"></input>
+		<input type="password" class="txt input-h" name="password" placeholder="Password"></input>
+		<div class="btns">
+			<button type="submit" class="input-h"><a href="/profile">Sign In</a></button>
+			<button type="submit" class="input-h"><a href="/signup">Sign Up</a></button>
+		</div>
+		<button type="submit" class="input-h google-btn"><span class="google"><i class="fab fa-google"></i></span><span class="sign-google">Sign in with Google</span></button>
+	</form>
+</div>
