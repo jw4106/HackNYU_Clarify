@@ -8,16 +8,16 @@ The professor will upload a presentation and display it to the class. Students w
 
 <h3> Technologies </h3>
 
-..*Express with Node.js 
-..*HTML / CSS
-..*React.js & Socket I/O
-..*MongoDB
-..*Passport
+  *Express with Node.js 
+  *HTML / CSS
+  *React.js & Socket I/O
+  *MongoDB
+  *Passport
 
 <h3> User Features </h3>
 
-..*Create a new presentation
-..*Present an uploaded presentation in professor mode
-..*View existing presentations
-..*Post questions to a presentation (ongoing or not)
-..*Resolve/dismiss/postpone questions
+  *Create a new presentation
+  *Present an uploaded presentation in professor mode
+  *View existing presentations
+  *Post questions to a presentation (ongoing or not)
+  *Resolve/dismiss/postpone questions
