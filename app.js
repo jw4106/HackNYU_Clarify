@@ -48,5 +48,7 @@ io.on('connection', function(socket){
 });
 //end SocketIO1
 
-app.listen(process.env.PORT || 3000);
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening');
+});
 //app.listen(3000);
