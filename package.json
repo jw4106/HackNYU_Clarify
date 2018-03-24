@@ -1,0 +1,24 @@
+{
+  "name": "hacknyu",
+  "version": "1.0.0",
+  "description": "hackNYU",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmr624/hackNYU2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmr624/hackNYU2018/issues"
+  },
+  "homepage": "https://github.com/cmr624/hackNYU2018#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "hbs": "^4.0.1",
+    "path": "^0.12.7"
+  }
+}
