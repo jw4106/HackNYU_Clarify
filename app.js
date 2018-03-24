@@ -38,10 +38,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require("./routes/routes.js")(app, passport);
 
+//SocketIO
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+app.use(express.static('public'));
+
+io.on('connect', (socket) => {
+    console.log("A User Connected");
+
+    socket.on("questionSubmit", (questionString) => {
+      io.emit("questionSubmit", questionString);
+    });
+
+    socket.on('disconneted', () => {
+      console.log("A User Disconnected");
+    })
+});
 
 http.listen(process.env.PORT || 3000, function(){
   console.log('listening');
 });
-//app.listen(3000);

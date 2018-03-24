@@ -2,21 +2,30 @@
 This is client side js
 */
 
-function createQuestion() {
-      //SocketIO
-      //Upon connection
-      io.on('connection', function(socket){
-        console.log('a user connected');
-        //join room
-        const question = document.querySelector("inputMessage").value;
-        //Upon disconnection
-        socket.on('disconnect', function(){
-          console.log('user disconnected');
-        });
-      });
-          //end SocketIO
-    });
+const socketInstance = io();
+document.addEventListener('DOMContentLoaded', init);
+
+function init(){
+  console.log("INited");
+  socketInstance.on('questionSubmit', question);
+
+  const submitButton = document.querySelector(".submitButton");
+
+  submitButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    const questionString = document.querySelector(".inputMessage").value;
+
+    socketInstance.emit('questionSubmit', questionString);
+  });
 }
 
+function question(questionString) {
+  console.log("Questioned");
 
-document.addEventListener('DOMContentLoaded', createQuestion);
+  const questionElem = document.createElement("p");
+
+  questionElem.append(document.createTextNode(questionString));
+
+  document.getElementById("myList").appendChild(questionElem);
+}

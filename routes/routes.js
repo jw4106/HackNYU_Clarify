@@ -1,6 +1,7 @@
 
 // routes/routes.js
 module.exports = function(app, passport) {
+
     // *********** PASSPORT BEGIN ***********
     // =====================================
     // HOME PAGE (with login links) ========
@@ -45,7 +46,6 @@ module.exports = function(app, passport) {
 
     app.get('/presentation', isLoggedIn, function(req, res) {
         res.render('presentation.hbs');
-
     });
 
     // =====================================
