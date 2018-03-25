@@ -13,51 +13,53 @@
 				<p class="prof-title alpha">Create New Presentation</p>
 		</div>
 
-	<div class="main_content">
-		<div class="row">
-				<h4 class="alpha">Title:</h4>
-				<input type="text" class="form-control" id="title">
-		</div>
-		<div class="row">
-				<h4 class='alpha'>Privacy:</h4>
-		</div>
+	<form action="" method="post">
+		<div class="main_content">
+			<div class="row">
+					<h4 class="alpha">Title:</h4>
+					<input type="text" class="form-control" id="title">
+			</div>
+			<div class="row">
+					<h4 class='alpha'>Privacy:</h4>
+			</div>
 
 
-		<div class="row">
-			<div class="global column">
-				<p>Private</p>
-				<input id="checkBox" type="checkbox">
+			<div class="row">
+				<div class="global column">
+					<p>Private</p>
+					<input id="checkBox" type="checkbox">
+				</div>
+				<div class="global column">
+					<p>Public</p>
+					<input id="checkBox" type="checkbox">
+				</div>
 			</div>
-			<div class="global column">
-				<p>Public</p>
-				<input id="checkBox" type="checkbox">
-			</div>
-		</div>
 
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h4 class="alpha">Upload PDF:</h4>
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 class="alpha">Upload PDF:</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Please select a presentation to upload. Must be in PDF format.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<img class="upload" src="../img/logo.jpg"><a href="#"></a>
+					<p>No file chosen</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="global column">
+					<button type="submit" class="prof-btn submit">Submit</button>
+				</div>
+				<div class="global column">
+					<button type="submit" class="prof-btn cancel">Cancel</button>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<p>Please select a presentation to upload. Must be in PDF format.</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<img class="upload" src="../img/logo.jpg"><a href="#"></a>
-				<p>No file chosen</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="global column">
-				<button type="submit" class="prof-btn submit">Submit</button>
-			</div>
-			<div class="global column">
-				<button type="submit" class="prof-btn cancel">Cancel</button>
-			</div>
-		</div>
-	</div>
+	</form>
 </div>

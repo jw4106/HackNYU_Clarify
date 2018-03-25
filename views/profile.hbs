@@ -31,7 +31,7 @@
 		<div>
 			<p class="prof-title alpha">Create New Presentation</p>
 			<p>Upload New Presentation</p>
-			<button type="submit" class="prof-btn"><a href="/create">Create</a></button>
+			<button type="submit" class="prof-btn" onclick="window.location.href='/create';">Create</button>
 		</div>
 	</div>
 <hr>
@@ -39,7 +39,7 @@
 		<p class="prof-title alpha">Your Presentations</p>
 		<ul class="thumbnails">
 
-			{{#each presentations}}
+			{{#each createdPresentations}}
 
 			<li class="span4">
 				<div class="thumbnail">
@@ -60,16 +60,22 @@
 	<section class="joined-presentation">
 		<p class="prof-title alpha">Joined Presentations</p>
 		<ul class="thumbnails">
+
+			{{#each joinedPresentations}}
+
 			<li class="span4">
 				<div class="thumbnail">
 					<img src="holder.js/300x200?theme=purple" alt="">
 					<div class="detail">
-						<h3 class="alpha">Header</h3>
-						<p class="beta">Caption</p>
+						<h3 class="alpha">{{ this.name }}</h3>
+						<p class="beta">{{ this.caption }}</p>
 					</div>
 				</div>
 			</li>
+
+			{{/each}}
+
 		</ul>
 	</section>
-	
+
 </div>
