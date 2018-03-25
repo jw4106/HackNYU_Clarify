@@ -1,3 +1,5 @@
+require("../models/user.js");
+
 
 // routes/routes.js
 module.exports = function(app, passport) {
@@ -7,7 +9,7 @@ module.exports = function(app, passport) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('index.hbs'); // load the index.ejs file
+        res.redirect('/login')
     });
     // =====================================
     // LOGIN ===============================
@@ -39,13 +41,27 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
+
+
         res.render('profile.hbs', {
-            user : req.user // get the user out of session and pass to template
+            username : req.user.local.email // get the user out of session and pass to template
         });
     });
 
     app.get('/presentation', isLoggedIn, function(req, res) {
         res.render('presentation.hbs');
+    });
+
+    app.post('/presentation', isLoggedIn, function(req, res) {
+
+      //Creates a new presentation and add tos the database
+      new Presentation({presentationID: 0 , questions: []}).save(function(err, data, count) {
+        if (!err) {
+          console.log('Successfully added new presentation to the database');
+          console.log(data);
+        }
+      });
+
     });
 
     // =====================================
