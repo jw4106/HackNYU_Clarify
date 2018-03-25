@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-require("../models/user.js");
-const User = mongoose.model("User");
+const User = require("../models/user.js");
 const Question = mongoose.model("Question");
 const Presentation = mongoose.model("Presentation");
 const ObjectId = require('mongodb').ObjectID;
@@ -69,26 +68,45 @@ module.exports = function(app, passport) {
         const extractData = function(IDs, onComplete){
           const allData = [];
           let promiseCounter = IDs.length;
+
+          if(promiseCounter <= 0){
+            onComplete([]);
+          }
+
+          console.log(promiseCounter);
           for(let i = 0; i < IDs.length; i++){
             Presentation.find( {"_id" : ObjectId(IDs[i]) }, function(err, internalData, count) {
-              console.log(internalData);
+              console.log("Internal data: " + internalData);
               promiseCounter--;
+              console.log(promiseCounter);
               if(!err){
                 allData.push(internalData);
                 if(promiseCounter <= 0){
                   onComplete(allData);
                 }
+              } else {
+                console.log("Error: " + err);
               }
             });
           }
         }
 
         const allCreatedData = extractData(createdPresentationsIDsToDisplay, function(data) {
+          if(data.length >= 0){
+
+              res.render('profile.hbs', {
+                  username : req.user.local.email, // get the user out of session and pass to template
+                  createdPresentations : data,
+                //yourPresentations : allJoinedData,
+              });
+          } else {
             res.render('profile.hbs', {
                 username : req.user.local.email, // get the user out of session and pass to template
-                createdPresentations : data,
+                fillWhenEmpty : "<h6> No created presentations</h6>"
               //yourPresentations : allJoinedData,
             });
+          }
+
         });
       //  const allJoinedData = extractData(joinedPresentationsIDsToDisplay);
       } );
