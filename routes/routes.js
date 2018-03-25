@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
 
         //get three of the user's presentations
         const createdPresentationsToDisplay = data[0].createdPresentations.slice(0, Math.max(data[0].createdPresentations.length, 3));
-        const joinedPresentationsToDisplay = data[0].joinedPresentations.slice0, Math.max(data[0].joinedPresentations.length, 3));
+        const joinedPresentationsToDisplay = data[0].joinedPresentations.slice(0, Math.max(data[0].joinedPresentations.length, 3));
 
         res.render('profile.hbs', {
             username : req.user.local.email, // get the user out of session and pass to template
