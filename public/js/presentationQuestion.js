@@ -5,15 +5,24 @@ This is client side js
 const socketInstance = io();
 document.addEventListener('DOMContentLoaded', init);
 
-//where do we get the presentation or ID from?
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 function init(){
   socketInstance.on('questionSubmit', question);
 
   const submitButton = document.querySelector(".submitButton");
-  const presentationID = window.location.pathname.replace("presentation", "");
 
-  console.log(presentationID);
+  const presentationID = getParameterByName("presentationID".trim());
+
+  console.log("PresentationID Client: " + presentationID);
 
   submitButton.addEventListener('click', (evt) => {
     //this code only laucnhes for the sending user
@@ -61,6 +70,9 @@ function question(question) {
 
   document.getElementById("myList").appendChild(questionElem);
 }
+
+
+
 
 /////
 /*

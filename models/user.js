@@ -11,7 +11,6 @@ const PresentationSchema = new mongoose.Schema({
 
   name: String,
   caption: String,
-  presentationID : Number,
   //creator: userSchema,
   //people with access
   questions: [QuestionSchema]
@@ -24,8 +23,8 @@ const userSchema = new mongoose.Schema({
         email        : String,
         password     : String
     },
-    createdPresentations : [PresentationSchema],
-    joinedPresentations : [PresentationSchema],
+    createdPresentations : [String], //stores the IDs
+    joinedPresentations : [String], //stores the IDs
 });
 
 

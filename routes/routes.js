@@ -3,6 +3,8 @@ require("../models/user.js");
 const User = mongoose.model("User");
 const Question = mongoose.model("Question");
 const Presentation = mongoose.model("Presentation");
+const ObjectId = require('mongodb').ObjectID;
+
 const url = require('url');
 
 // routes/routes.js
@@ -58,15 +60,37 @@ module.exports = function(app, passport) {
         }
 
         //get three of the user's presentations
-        const createdPresentationsToDisplay = data[0].createdPresentations.slice(0, Math.max(data[0].createdPresentations.length, 3));
-        const joinedPresentationsToDisplay = data[0].joinedPresentations.slice0, Math.max(data[0].joinedPresentations.length, 3));
+        const createdPresentationsIDsToDisplay = data[0].createdPresentations.slice(0, Math.min(data[0].createdPresentations.length, 3));
+        const joinedPresentationsIDsToDisplay = data[0].joinedPresentations.slice(0, Math.min(data[0].joinedPresentations.length, 3));
 
-        res.render('profile.hbs', {
-            username : req.user.local.email, // get the user out of session and pass to template
-            createdPresentations : createdPresentationsToDisplay,
-            yourPresentations : joinedPresentationsToDisplay,
+        console.log(createdPresentationsIDsToDisplay);
+        console.log(joinedPresentationsIDsToDisplay);
+
+        const extractData = function(IDs, onComplete){
+          const allData = [];
+          let promiseCounter = IDs.length;
+          for(let i = 0; i < IDs.length; i++){
+            Presentation.find( {"_id" : ObjectId(IDs[i]) }, function(err, internalData, count) {
+              console.log(internalData);
+              promiseCounter--;
+              if(!err){
+                allData.push(internalData);
+                if(promiseCounter <= 0){
+                  onComplete(allData);
+                }
+              }
+            });
+          }
+        }
+
+        const allCreatedData = extractData(createdPresentationsIDsToDisplay, function(data) {
+            res.render('profile.hbs', {
+                username : req.user.local.email, // get the user out of session and pass to template
+                createdPresentations : data,
+              //yourPresentations : allJoinedData,
+            });
         });
-
+      //  const allJoinedData = extractData(joinedPresentationsIDsToDisplay);
       } );
 
     });
@@ -79,26 +103,32 @@ module.exports = function(app, passport) {
 
       //Creates a new presentation and adds to the database
       //TODO: creates new with file
-      req.user.createdPresentations.push(new Presentation({name: "Default Name", caption: "Fill me in daddy", questions: []}));
+      const pres = new Presentation({name: "Default Name", caption: "Fill me in daddy", questions: []});
 
-      req.user.createdPresentations.save(function(err, data, count) {
+      pres.save(pres, function(err, data, count){
+
         if (!err) {
           console.log('Successfully added new presentation to the database');
+
+          console.log(data._id);
+          req.user.createdPresentations.push(data._id);
+          req.user.save();
 
           res.redirect(url.format({
             pathname:'/presentation',
             query: {
-              presentationID: data._id,
+              presentationID: data._id + '',
             }
           }));
         }
       });
     });
 
-    //Regex for any presentation url
-    app.get('/^presentation?', function(req, res){
+    app.get('/presentation', isLoggedIn, function(req, res){
 
-      const presentationID = req.url.replace("presentation", "");
+      const presentationID = req.url.replace("/presentation?presentationID=", "").trim();
+
+      console.log("presentation ID: " + presentationID);
 
       res.render('presentation.hbs');
     });

@@ -4,6 +4,7 @@ require("./models/user.js");
 const User = mongoose.model("User");
 const Question = mongoose.model("Question");
 const Presentation = mongoose.model("Presentation");
+const ObjectId = require('mongodb').ObjectID;
 
 const express = require('express');
 const passport = require('passport');
@@ -55,16 +56,39 @@ io.on('connect', (socket) => {
 
     socket.on("questionSubmit", (presentationID, question) => {
 
-      //find presentation
-      Presentation.find( {presentationID : presentationID}, function(err, data, count) {
-        data[0].questions.push({text: question.text, upvotes: 0});
+      console.log("Handed presentationID: " + presentationID.trim());
+      Presentation.find( {}, function(err, data, count) {
+        console.log("All data: " + data);
 
-        data[0].save(function (err) {
-          if (!err) {
-            console.log('Success!');
-            console.log(data[0]);
+        //find presentation
+        Presentation.find( {"_id" : ObjectId(presentationID) }, function(err, data, count) {
+          console.log(data);
+
+          if(err !== null){
+            console.log("Error: "  + err);
+            return;
           }
+
+          if(count > 1){
+            console.log("Too many users found! Unique ID has failed");
+            return;
+          }
+
+          if(count <= 0){
+            console.log("No users found! Unique ID has failed");
+            return;
+          }
+
+          data[0].questions.push({text: question.text, upvotes: 0});
+
+          data[0].save(function (err) {
+            if (!err) {
+              console.log('Success!');
+              console.log(data[0]);
+            }
+          });
         });
+
       });
 
       io.emit("questionSubmit", question);
