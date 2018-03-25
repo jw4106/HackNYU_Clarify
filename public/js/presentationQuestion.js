@@ -5,27 +5,75 @@ This is client side js
 const socketInstance = io();
 document.addEventListener('DOMContentLoaded', init);
 
+//where do we get the presentation or ID from?
+const presentationData = undefined;
+
 function init(){
-  console.log("INited");
   socketInstance.on('questionSubmit', question);
 
   const submitButton = document.querySelector(".submitButton");
 
   submitButton.addEventListener('click', (evt) => {
+    //this code only laucnhes for the sending user
     evt.preventDefault();
 
     const questionString = document.querySelector(".inputMessage").value;
 
-    socketInstance.emit('questionSubmit', questionString);
+    document.querySelector(".inputMessage").value = "";
+
+    //create question object
+    const questionData = {
+      text: questionString
+    }
+
+    socketInstance.emit('questionSubmit', presentationData, questionData);
   });
 }
 
-function question(questionString) {
-  console.log("Questioned");
+function question(question) {
+  //this code happens for every user!
 
-  const questionElem = document.createElement("p");
+  const questionElem = document.createElement("div");
+  questionElem.className = "questionDiv";
 
-  questionElem.append(document.createTextNode(questionString));
+  const textElem = document.createElement("p");
+  textElem.className = "questionText";
+  questionElem.append(textElem);
+
+  const upvoteTextElem = document.createElement("p");
+  upvoteTextElem.className = "upvoteText";
+  questionElem.append(upvoteTextElem);
+
+  const upvoteButtonElem = document.createElement("button");
+  upvoteButtonElem.className = "upvoteButton";
+  questionElem.append(upvoteTextElem);
+
+  upvoteButtonElem.addEventListener("click", (evt) => {
+
+    evt.preventDefault();
+    //upvote or remove upvote
+
+  });
+
+  questionElem.append(document.createTextNode(question.text));
 
   document.getElementById("myList").appendChild(questionElem);
 }
+
+/////
+/*
+class Question {
+  constructor(text, position){
+    this.text = text;
+    this.position = position;
+    this.upvotes = 0;
+  }
+
+  upvote(){
+    this.upvotes++;
+  }
+
+  removeUpvote(){
+    this.upvotes--;
+  }
+}*/

@@ -1,5 +1,10 @@
 //app.js
 const mongoose = require('mongoose');
+require("./models/user.js");
+const User = mongoose.model("User");
+const Question = mongoose.model("Question");
+const Presentation = mongoose.model("Presentation");
+
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
@@ -45,16 +50,30 @@ const io = require('socket.io')(http);
 
 app.use(express.static('public'));
 
+
 io.on('connect', (socket) => {
     console.log("A User Connected");
 
-    socket.on("questionSubmit", (questionString) => {
-      io.emit("questionSubmit", questionString);
+    socket.on("questionSubmit", (presentation, question) => {
+
+      //find presentation
+      Presentation.find( {presentationID : 0}, function(err, data, count) {
+        data[0].questions.push({text: question.text, upvotes: 0});
+
+        data[0].save(function (err) {
+          if (!err) {
+            console.log('Success!');
+            console.log(data[0]);
+          }
+        });
+      });
+
+      io.emit("questionSubmit", question);
     });
 
     socket.on('disconneted', () => {
       console.log("A User Disconnected");
-    })
+    });
 });
 
 http.listen(process.env.PORT || 3000, function(){

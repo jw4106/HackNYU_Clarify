@@ -1,0 +1,48 @@
+body {
+/*	background-color: #F5F1F8;*/
+	text-align: center;
+}
+.main_content {
+	text-align: left;
+}
+.brand {
+	height: 100%;
+}
+button {
+	width: 100%;
+	border-radius:5px;
+	font-size:22px;
+	color:gray;
+	box-shadow: .0px .2px .2px #330145;
+	border: none;
+}
+button.submit {
+	background-color: #561389;
+	color: white;
+}
+.upload {
+	height: 20px;
+}
+.public {
+	display:grid;
+	grid-template-columns: 1fr;
+	text-align: center;
+	grid-auto-rows: minmax(200px,auto);
+	text-align: left;
+}
+.submit {
+	display: inline-block;
+}
+.cancel {
+	display: inline-block;
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

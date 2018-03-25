@@ -5,7 +5,7 @@
 <div class="container">
 	<p class="alpha white" style="margin-top:150px; font-size:45px;">Clarify</p><br><br><br>
 	<p class="alpha white subtitle">Log In</p><br>
-	<form class="login-form" action="/login" method="post">
+	<form class="login-form" action="" method="post">
 		<div class="form-group">
 			<input type="email" class="txt input-h form-control" name="email" placeholder="Email"></input>
 		</div>
@@ -13,11 +13,11 @@
 			<input type="password" class="txt input-h form-control" name="password" placeholder="Password"></input>
 		</div>
 		<div class="btns">
-			<button type="submit" class="input-h btn-warning btn-lg">
+			<button type="submit" class="input-h btn-warning btn-lg" formaction="/login">
 				Sign In
 			</button>
-			<button type="submit" class="input-h">
-				<a href="/signup">Sign Up</a>
+			<button type="submit" class="input-h" formaction="/signup">
+				Sign Up
 			</button>
 		</div>
 		<button type="submit" class="input-h google-btn">

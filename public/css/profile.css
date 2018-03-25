@@ -44,7 +44,7 @@ header {
 	display:grid;
 	grid-template-columns: 1fr;
 	text-align: center;
-	grid-auto-rows: minmax(200px,auto);
+	grid-auto-rows: minmax(200px,auto, 2fr);
 }
 
 .prof-btn {
