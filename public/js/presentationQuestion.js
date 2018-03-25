@@ -5,6 +5,9 @@ This is client side js
 const socketInstance = io();
 document.addEventListener('DOMContentLoaded', init);
 
+//where do we get the presentation or ID from?
+const presentationData = undefined;
+
 function init(){
   socketInstance.on('questionSubmit', question);
 
@@ -23,7 +26,7 @@ function init(){
       text: questionString
     }
 
-    socketInstance.emit('questionSubmit', undefined, questionData);
+    socketInstance.emit('questionSubmit', presentationData, questionData);
   });
 }
 

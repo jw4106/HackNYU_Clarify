@@ -48,14 +48,14 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/presentation', isLoggedIn, function(req, res) {
+    app.get('/create', isLoggedIn, function(req, res) {
         res.render('presentation.hbs');
     });
 
-    app.post('/presentation', isLoggedIn, function(req, res) {
+    app.post('/create', isLoggedIn, function(req, res) {
 
       //Creates a new presentation and add tos the database
-      new Presentation({presentationID: 0 , questions: []}).save(function(err, data, count) {
+      new Presentation({presentationID: , questions: []}).save(function(err, data, count) {
         if (!err) {
           console.log('Successfully added new presentation to the database');
           console.log(data);

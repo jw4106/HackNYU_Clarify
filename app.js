@@ -50,9 +50,6 @@ const io = require('socket.io')(http);
 
 app.use(express.static('public'));
 
-new Presentation({presentationID: 0 , questions: []}).save(function(err, data, count) {
-  //some stuff
-});
 
 io.on('connect', (socket) => {
     console.log("A User Connected");
