@@ -1,15 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt-nodejs");
 
-// define the schema for our user model
-const userSchema = new mongoose.Schema({
-
-    local            : {
-        email        : String,
-        password     : String
-    }
-});
-
 //presentations
 const QuestionSchema = new mongoose.Schema({
   text: String,
@@ -18,10 +9,23 @@ const QuestionSchema = new mongoose.Schema({
 
 const PresentationSchema = new mongoose.Schema({
 
+  name: String,
+  caption: String,
   presentationID : Number,
   //creator: userSchema,
   //people with access
   questions: [QuestionSchema]
+});
+
+// define the schema for our user model
+const userSchema = new mongoose.Schema({
+
+    local            : {
+        email        : String,
+        password     : String
+    },
+    createdPresentations : [PresentationSchema],
+    joinedPresentations : [PresentationSchema],
 });
 
 

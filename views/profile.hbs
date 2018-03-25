@@ -22,33 +22,20 @@
 	<section class="my-presentation">
 		<p class="prof-title alpha">Your Presentations</p>
 		<ul class="thumbnails">
+
+			{{#each presentations}}
+
 			<li class="span4">
 				<div class="thumbnail">
 					<img src="holder.js/300x200?theme=purple" alt="">
 					<div class="detail">
-						<h3 class="alpha">Header</h3>
-						<p class="beta">Caption</p>
+						<h3 class="alpha">{{ this.name }}</h3>
+						<p class="beta">{{ this.caption }}</p>
 					</div>
 				</div>
 			</li>
-			<li class="span4">
-				<div class="thumbnail">
-					<img src="holder.js/300x200?theme=purple" alt="">
-					<div class="detail">
-						<h3 class="alpha">Header</h3>
-						<p class="beta">Caption</p>
-					</div>
-				</div>
-			</li>
-			<li class="span4">
-				<div class="thumbnail">
-					<img src="holder.js/300x200?theme=purple" alt="">
-					<div class="detail">
-						<h3 class="alpha">Header</h3>
-						<p class="beta">Caption</p>
-					</div>
-				</div>
-			</li>
+
+			{{/each}}
 		</ul>
 	</section>
 	<hr>

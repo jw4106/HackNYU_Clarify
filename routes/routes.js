@@ -1,5 +1,9 @@
+const mongoose = require('mongoose');
 require("../models/user.js");
-
+const User = mongoose.model("User");
+const Question = mongoose.model("Question");
+const Presentation = mongoose.model("Presentation");
+const url = require('url');
 
 // routes/routes.js
 module.exports = function(app, passport) {
@@ -42,26 +46,61 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
 
+      User.find( { _id: req.user._id }, function(err, data, count) {
+        if(err || data === undefined){
+          console.log("User not found!");
+          res.render('profile.hbs');
+        }
+
+        if(count > 1){
+          console.log("Too many users found! Unique ID has failed");
+          res.render('profile.hbs');
+        }
+
+        //get three of the user's presentations
+        const createdPresentationsToDisplay = data[0].createdPresentations.slice(0, Math.max(data[0].createdPresentations.length, 3));
+        const joinedPresentationsToDisplay = data[0].joinedPresentations.slice0, Math.max(data[0].joinedPresentations.length, 3));
 
         res.render('profile.hbs', {
-            username : req.user.local.email // get the user out of session and pass to template
+            username : req.user.local.email, // get the user out of session and pass to template
+            createdPresentations : createdPresentationsToDisplay,
+            yourPresentations : joinedPresentationsToDisplay,
         });
+
+      } );
+
     });
 
     app.get('/create', isLoggedIn, function(req, res) {
-        res.render('presentation.hbs');
+        res.render('create.hbs');
     });
 
     app.post('/create', isLoggedIn, function(req, res) {
 
-      //Creates a new presentation and add tos the database
-      new Presentation({presentationID: , questions: []}).save(function(err, data, count) {
+      //Creates a new presentation and adds to the database
+      //TODO: creates new with file
+      req.user.createdPresentations.push(new Presentation({name: "Default Name", caption: "Fill me in daddy", questions: []}));
+
+      req.user.createdPresentations.save(function(err, data, count) {
         if (!err) {
           console.log('Successfully added new presentation to the database');
-          console.log(data);
+
+          res.redirect(url.format({
+            pathname:'/presentation',
+            query: {
+              presentationID: data._id,
+            }
+          }));
         }
       });
+    });
 
+    //Regex for any presentation url
+    app.get('/^presentation?', function(req, res){
+
+      const presentationID = req.url.replace("presentation", "");
+
+      res.render('presentation.hbs');
     });
 
     // =====================================

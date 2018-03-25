@@ -6,12 +6,14 @@ const socketInstance = io();
 document.addEventListener('DOMContentLoaded', init);
 
 //where do we get the presentation or ID from?
-const presentationData = undefined;
 
 function init(){
   socketInstance.on('questionSubmit', question);
 
   const submitButton = document.querySelector(".submitButton");
+  const presentationID = window.location.pathname.replace("presentation", "");
+
+  console.log(presentationID);
 
   submitButton.addEventListener('click', (evt) => {
     //this code only laucnhes for the sending user
@@ -26,7 +28,7 @@ function init(){
       text: questionString
     }
 
-    socketInstance.emit('questionSubmit', presentationData, questionData);
+    socketInstance.emit('questionSubmit', presentationID, questionData);
   });
 }
 

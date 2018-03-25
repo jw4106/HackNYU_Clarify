@@ -50,14 +50,13 @@ const io = require('socket.io')(http);
 
 app.use(express.static('public'));
 
-
 io.on('connect', (socket) => {
     console.log("A User Connected");
 
-    socket.on("questionSubmit", (presentation, question) => {
+    socket.on("questionSubmit", (presentationID, question) => {
 
       //find presentation
-      Presentation.find( {presentationID : 0}, function(err, data, count) {
+      Presentation.find( {presentationID : presentationID}, function(err, data, count) {
         data[0].questions.push({text: question.text, upvotes: 0});
 
         data[0].save(function (err) {
