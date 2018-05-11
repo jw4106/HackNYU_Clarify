@@ -11,6 +11,7 @@ const PresentationSchema = new mongoose.Schema({
 
   name: String,
   caption: String,
+  fileName: String,
   //creator: userSchema,
   //people with access
   questions: [QuestionSchema]

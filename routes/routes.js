@@ -121,24 +121,35 @@ module.exports = function(app, passport) {
 
       //Creates a new presentation and adds to the database
       //TODO: creates new with file
-      const pres = new Presentation({name: "Default Name", caption: "Fill me in daddy", questions: []});
+      var mongoose = require('mongoose');
+      var slides = mongoose.model('Slides');
+      var User = mongoose.model('User');
+      if (!req.files)
+        res.redirect('/profile');
+     
+      // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+      let sampleFile = req.files.sampleFile;
+      const pres = new Presentation({name: "Default Name",fileName: req.files.sampleFile.name, caption: "Fill me in daddy", questions: []});
 
       pres.save(pres, function(err, data, count){
-
-        if (!err) {
-          console.log('Successfully added new presentation to the database');
-
-          console.log(data._id);
-          req.user.createdPresentations.push(data._id);
-          req.user.save();
-
-          res.redirect(url.format({
-            pathname:'/presentation',
-            query: {
-              presentationID: data._id + '',
+        sampleFile.mv('public/assets/'+req.files.sampleFile.name, function(err) {
+            if (err){
+              return res.status(500).send(err);
             }
-          }));
-        }
+            else{
+              user[0].save(function(err){
+              req.user.createdPresentations.push(data._id);
+              req.user.save();
+
+              res.redirect(url.format({
+                pathname:'/presentation',
+                query: {
+                  presentationID: data._id + '',
+                }
+              }));  
+              });
+            }
+          });
       });
     });
 
